@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="enter">
+    <div class="pr-cabinet">
+        <h1>Личный кабинет пользователя</h1>
+        <h2 class="username">{{ user }}</h2>
+        <div class="navigation-cabinet">
+            <a href="{% url 'user_posts' %}">Мои обьявления</a>
+            <a href="{% url 'user_orders' %}">Мои заказы</a>
+            <a href="{% url 'logout' %}">Выйти</a>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'login/base.html' %}
+
+{% block content %}
+
+<div class="login-box">
+
+    <div class="login-item">
+      <form action="{% url 'login' %}" method="post">
+          <p class="login-form-head">Вход на сайт</p>
+          {% csrf_token %}
+          {% for field in form %}
+            {{ field.label }}
+            <p>{{ field }}</p>
+          {% endfor %}
+          <button class="btn btn-warning" type="submit">Войти</button>
+          <a href="{% url 'password_reset' %}">Забыли пароль?</a><br>
+          <p></p>
+          <p class="log-ques">Вы еще не зарегестрированы?</p>
+          <p class="reg-link"><a href="{% url 'register' %}">Зарегистрироваться на сайте</a></p>
+      </form>
+    </div>
+</div>
+
+{% endblock content %}

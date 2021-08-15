@@ -1,0 +1,41 @@
+{% extends 'login/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 align="center">Мои заказы</h1>
+{% for order in orders %}
+<div class="order-view">
+    <div class="row order-item">
+        <div class="col-md-6 user-data">Имя</div>
+        <div class="col-md-6">{{ order.first_name }}</div>
+    </div>
+    <div class="row order-item">
+        <div class="col-md-6 user-data">Фамилия</div>
+        <div class="col-md-6">{{ order.last_name }}</div>
+    </div>
+    <div class="row order-item">
+        <div class="col-md-6 user-data">Номер телефона</div>
+        <div class="col-md-6">{{ order.phone }}</div>
+    </div>
+    <div class="row order-item">
+        <div class="col-md-6 user-data">Дата создания</div>
+        <div class="col-md-6">{{ order.create_time }}</div>
+    </div>
+    <div class="row order-item">
+        <div class="col-md-6 user-data">Адрес</div>
+        <div class="col-md-6">{{ order.address }}</div>
+    </div>
+    <div class="row order-item">
+        <div class="col-md-6 user-data">Товары</div>
+        <div class="col-md-6">
+            {% for item in order.cart.products.all %}
+            <a href="{{ item.product.get_absolute_url }}">{{ item.product.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock content %}
+

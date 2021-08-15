@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card-detail">
+    <div class="detail-img">
+        <img src="{{ product.img.url }}" style="width:700px; height:500px; float:left;" alt="">
+    </div>
+    <div class="detail-title">
+        <p>{{ product.title }}</p>
+    </div>
+
+    <div class="detail-price">
+        <p>{{ product.price }} $</p>
+    </div>
+    <div class="detail-content">
+        <p>{{ product.content }}</p>
+    </div>
+    {% if request.user == product.created_by %}
+    <nav class="detail-navigation-login">
+        <ul>
+            <li><a style="background:#31708E;color:white" class="update-prod" href="{% url 'update_product' product.slug %}">Изменить</a></li>
+            <li><a style="background:#B23850;color:white" class="del-prod" href="{% url 'delete_product' product.slug %}">Удалить</a></li>
+        </ul>
+    </nav>
+    {% else %}
+    <nav class="detail-navigation-logout">
+        <ul>
+            <li><a style="background:#14A098;color:white" href="{% url 'add_cart' slug=product.slug id=product.id %}">Добавить в корзину</a></li>
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock content %}

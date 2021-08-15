@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% if cart_items %}
+{% for item in cart_items %}
+<div class="container">
+    <div class="transcription">
+        <div class="row">
+            <div class="col-md-2"><div class="product-photo">Фото</div></div>
+            <div class="col-md-2"><div class="product-title">Название</div></div>
+            <div class="col-md-2"><div class="product-price">Цена</div></div>
+            <div class="col-md-2"><div class="product-content">Описание</div></div>
+            <div class="col-md-2"><div class="product-content">Количество</div></div>
+        </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="cart-item">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{ item.product.get_absolute_url }}"><img src="{{ item.product.img.url }}" width="200px" height="130x" style="padding:10px;" alt=""></a>
+            </div>
+            <div class="col-md-2"><div class="item-title">{{ item.product.title }}</div></div>
+            <div class="col-md-2"><div class="item-price">{{ item.product.price }} $</div></div>
+            <div class="col-md-2"><div class=item-content>{{ item.product.content|truncatewords:10 }}</div></div>
+            <div class="col-md-2"><div class=item-content>{{ item.qty }}</div></div>
+            <div class="input-group">
+           <a class="cart-item-delete input-group-btn" href="{% url 'delete_from_cart' item.product.id %}">Удалить</a>
+            <form action="{% url 'change_qty' slug=item.product.slug id=item.product.id %}" method="POST">
+                    {% csrf_token %}
+                    <input class="qty-change" type="submit" value="Изменить количество"><input class="qty-change-number" min="1" max="50" type="number" name="qty" value="{{ item.qty }}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+{% endfor %}
+<h3>Финальная сумма: {{ cart.final_price }} $</h3>
+<div class="proceed-to-checkout">
+    <a href="{% url 'check_order' %}"><button class="btn btn-primary">Перейти к оформлению заказа</button></a>
+</div>
+
+{% else %}
+<div style="margin-top:100px;margin-left:100px;text-align:center;">
+    <h1>Your cart is empty</h1>
+    <h2>Select products in the store so that they appear in the shopping cart</h2>
+</div>
+{% endif %}
+
+{% endblock content %}

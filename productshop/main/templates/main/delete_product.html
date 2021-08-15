@@ -1,0 +1,8 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<form action="" method="post">
+  <h1>Удаление статьи</h1>
+  {% csrf_token %}
+  <button class="btn btn-danger" type="submit">Удалить</button>
+</form>
+{% endblock content %}

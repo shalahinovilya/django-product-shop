@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load product_tags %}
+
+{% block content %}
+<div class="update-form">
+    <div class="inline-update">
+    <div class="container update-product">
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                     {% if field|input_type == 'Textarea' %}
+                        {{ field.errors }}
+                        <div class="textarea">{{ field|attr:"rows:5" |attr:"cols:49" |as_crispy_field }}</div>
+                    {% else %}
+                         {{ field.errors }}
+                         <div class="form-field-update">{{ field|as_crispy_field }}</div>
+                    {% endif %}
+                {% endfor %}
+                <br>
+                <div class="update-card-button">
+                    <button class="btn btn-info" type="submit">Подтвердить изменения</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

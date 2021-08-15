@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{% if products %}
+{% for product in products %}
+<div class="container">
+    <div class="transcription">
+        <div class="row">
+            <div class="col-md-2"><div class="product-photo">Фото</div></div>
+            <div class="col-md-2"><div class="product-title">Название</div></div>
+            <div class="col-md-2"><div class="product-price">Цена</div></div>
+            <div class="col-md-2"><div class="product-content">Описание</div></div>
+        </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="cart-item">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{ product.get_absolute_url }}"><img src="{{ product.img.url }}" width="200px" height="130x" style="padding:10px;" alt=""></a>
+            </div>
+            <div class="col-md-2"><div class="item-title">{{ product.title }}</div></div>
+            <div class="col-md-2"><div class="item-price">{{ product.price }} $</div></div>
+            <div class="col-md-2"><div class=item-content>{{ product.content|truncatewords:10 }}</div></div>
+            <div class="input-group">
+            <a class="cart-item-delete input-group-btn" href="{% url 'delete_product' product.slug %}">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+{% endfor %}
+{% else %}
+<h1 align="center">You dont have posts</h1>
+{% endif %}
+
+{% endblock content %}
